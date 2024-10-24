@@ -1,0 +1,6 @@
+requests==2.32.3
+python==3.12.7 
+pandas==2.2.3
+matplotlib-base==3.9.2
+matplotlib-inline==0.1.7
+seaborn==0.13.2

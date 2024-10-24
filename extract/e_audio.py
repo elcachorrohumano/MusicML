@@ -1,6 +1,6 @@
 import os
 import requests
-from secrets import secrets, l_secrets
+from spotify_secrets import e_secrets, l_secrets
 
 
 # Function to get Spotify access token
