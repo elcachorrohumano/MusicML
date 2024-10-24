@@ -2,6 +2,7 @@
 *.csv
 spotify_secrets.py
 *.mp3
+data/
 
 .DS_Store
 

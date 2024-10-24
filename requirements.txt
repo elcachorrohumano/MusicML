@@ -4,3 +4,6 @@ pandas==2.2.3
 matplotlib-base==3.9.2
 matplotlib-inline==0.1.7
 seaborn==0.13.2
+numpy==2.1.2
+librosa==0.10.2.post1
+h5py==3.11.0 
