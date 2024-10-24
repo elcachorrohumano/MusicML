@@ -1,8 +1,8 @@
 *.zip
-*.csv
 spotify_secrets.py
 *.mp3
-data/
+*.h5
+
 
 .DS_Store
 

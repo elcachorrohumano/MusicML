@@ -7,3 +7,4 @@ seaborn==0.13.2
 numpy==2.1.2
 librosa==0.10.2.post1
 h5py==3.11.0 
+scikit-learn==1.5.1
