@@ -9,7 +9,7 @@ data_dir = '/Users/elcachorrohumano/workspace/MusicNN/data/audio_samples'
 output_file = '/Users/elcachorrohumano/workspace/MusicNN/data/spectrograms.h5'
 csv_file = '/Users/elcachorrohumano/workspace/MusicNN/data/tracks_audio_features_with_names.csv'
 
-# Load the CSV file with song names and IDs
+# Load the CSV file with song IDs and track names
 df = pd.read_csv(csv_file)
 
 # Initialize lists to store spectrograms, labels, song names, and IDs
@@ -40,11 +40,6 @@ for label in ['0', '1']:
 
 # Find the minimum length of the spectrograms
 min_length = min(spectrogram_lengths)
-max_length = max(spectrogram_lengths)
-average_length = sum(spectrogram_lengths) / len(spectrogram_lengths)
-print(f"Minimum spectrogram length: {min_length}")
-print(f"Maximum spectrogram length: {max_length}")
-print(f"Average spectrogram length: {average_length}")
 
 # Iterate again to truncate spectrograms and store them along with names and IDs
 for label in ['0', '1']:
@@ -57,26 +52,28 @@ for label in ['0', '1']:
             # Truncate the spectrogram to the minimum length
             truncated_spectrogram = spectrogram[:, :min_length]
             
-            # Get the song name without the extension
-            song_name = os.path.splitext(file_name)[0]
+            # Extract the song ID from the filename (assuming filename is the ID)
+            song_id = os.path.splitext(file_name)[0]
             
-            # Look up the corresponding ID from the CSV
-            row = df[df['track_name'] == song_name]
+            # Look up the corresponding track name from the CSV using the song ID
+            row = df[df['id'] == song_id]
             if not row.empty:
-                song_id = row['id'].values[0]
+                song_name = row['track_name'].values[0]
             else:
-                song_id = ''  # Use empty string if no match found
-                print(f"Song name '{song_name}' not found in the CSV.")
+                song_name = ''  # Use empty string if no match found
+                print(f"Song ID '{song_id}' not found in the CSV.")
             
             # Store the truncated spectrogram, label, song name, and ID
             spectrograms.append(truncated_spectrogram)
             labels.append(int(label))
             song_names.append(song_name)
-            song_ids.append(str(song_id))  # Ensure song_id is a string
+            song_ids.append(song_id)  # Ensure song_id is stored as is
 
 # Convert to numpy arrays
 spectrograms = np.array(spectrograms)
 labels = np.array(labels)
+
+song_names = [str(name) for name in song_names]
 
 # Save to HDF5 file, using UTF-8 encoding for song names and IDs
 with h5py.File(output_file, 'w') as f:
