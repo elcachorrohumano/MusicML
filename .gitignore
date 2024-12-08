@@ -2,6 +2,7 @@
 spotify_secrets.py
 *.mp3
 *.h5
+*.pth
 
 *.pth
 
